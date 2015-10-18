@@ -1,0 +1,464 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>MarksDB</title>
+  <link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css"/>
+  <script src="js/jquery.min.js"></script>
+</head>
+
+<body>
+    <!--navigation bar-->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand active" id="brand" href="#">MarksDB</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <!--remove the first option and put it in another webapp-->
+            <li class="navbarButtons" data-common-href="addStudentMarks"><a href="#addStudentMarks" id="addStudentMarksLink">Add Student Marks</a></li>
+            <li class="navbarButtons" data-common-href="updateStudentMarks"><a href="#updateStudentMarks" id="updateStudentMarksLink">Update Student Marks</a></li>
+            <li class="navbarButtons" data-common-href="addStudentDetails"><a href="#addStudentDetails" id="addStudentDetailsLink">Add Student Details</a></li>
+            <li class="navbarButtons" data-common-href="addSubjectDetails"><a href="#addSubjectDetails" id="addSubjectDetailsLink">Add Subject Details</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="navbarButtons"><a href="/logout">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <!--All the div elements would land up here-->
+    <div id="parentDiv" style="width:100%">
+
+        <div id="universityLogo" class="allDivGroup" style="margin-left:35%;margin-top:10%;width:30%">
+          <img src="/img/dsi220.jpg" alt="dsi image" style="width:100%;"/>
+        </div>
+
+
+        <!--Add student marks-->
+        <div id="addStudentMarks" class="allDivGroup" style="display:none;width:70%;margin-left:15%;margin-top:2%">
+
+            <div class="form-group" style="float:left;width:20%;">
+              <label class="control-label" for="addMarksScheme">Scheme</label>
+              <div>
+                <select class="form-control" id="addMarksScheme">
+                  <option value="2014">2014</option>
+                  <option value="2010">2010</option>
+                  <option value="2006">2006</option>
+                  <option value="2002">2002</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="float:left;width:50%;">
+              <label for="select" class="control-label">Branch</label>
+              <div>
+                <select class="form-control" id="addMarksBranch">
+                  <optgroup label="UnderGraduate">
+                    <option value="PH">Physics Cycle</option>
+                    <option value="CH">Chemistry Cycle</option>
+                    <option value="CV">Civil</option>
+                    <option value="ME">Mechanical</option>
+                    <option value="EE">Electrical and Electronics</option>
+                    <option value="EC">Electronics and Communication</option>
+                    <option value="CL">Chemical</option>
+                    <option value="IT">Instrumentation Technology</option>
+                    <option value="IE">IEM</option>
+                    <option value="CS">Computer Science</option>
+                    <option value="TC">Telecommunication</option>
+                    <option value="ML">Medical Electronics</option>
+                    <option value="IS">Information Science</option>
+                    <option value="BT">Biotechnology</option>
+                    <option value="AE">Aeronautical</option>
+                    <option value="AM">Automobile</option>
+                    <option value="CM">Construction Tech. Mgmt.</option>
+                  </optgroup>
+                  <optgroup label="PostGraduate">
+                    <option value="SE">Structural Engg</option>
+                    <option value="HT">Highway Technology</option>
+                    <option value="DE">Design Engineering</option>
+                    <option value="CI">Computer Integrated Mft.</option>
+                    <option value="PE">Power Electronics</option>
+                    <option value="DC">Digital Electronics and Comm.</option>
+                    <option value="VD">VLSI Design and Embedded Sys.</option>
+                    <option value="CE">Chemical Engineering</option>
+                    <option value="CN">Computer Network Engg.</option>
+                    <option value="DI">Digital Comm and Engg.</option>
+                    <option value="CO">Computer Science and Engg.</option>
+                    <option value="BS">Biomedical Signal Proc. and Instn.</option>
+                    <option value="MM">Micro Electronics and Mgmt.</option>
+                    <option value="MA">Master of Engg. and Mgmt.</option>
+                    <option value="BO">Bio-informatics</option>
+                    <option value="MB">MBA</option>
+                    <option value="MC">MCA</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="float:left;width:30%;">
+              <label for="select" class="control-label">Semester</label>
+              <div>
+                <select class="form-control" id="addMarksSemester">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="alert alert-dismissible alert-info" style="display:none;clear:both;" id="addMarksAlert">
+              <button type="button" class="close" data-dismiss="alert" id="addMarksAlertClose">×</button>
+              <p id="addMarksAlertText"></p>
+            </div>
+
+            <!--Get the usn and name-->
+            <div class="form-group">
+              <label class="control-label" for="addMarksUSN">USN</label>
+              <input class="form-control" id="addMarksUSN" type="text">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="addMarksName">Name</label>
+              <input class="form-control" id="addMarksName" type="text" readonly>
+            </div>
+
+            <div>
+              <label class="control-label" style="float:left;width:12%">SubjectCode</label>
+              <label class="control-label" style="float:left;width:28%">SubjectName</label>
+              <label class="control-label" style="float:left;width:17%">Internal</label>
+              <label class="control-label" style="float:left;width:17%">External</label>
+              <label class="control-label" style="float:left;width:17%">Total</label>
+              <label class="control-label" style="float:left;width:9%">Status</label>
+              <div id="addMarksSubjects">
+                <!--
+                    <input type="text" class="form-control" style="float:left;width:12%" value="Code" readonly/>
+                    <input type="text" class="form-control" style="float:left;width:28%" value="Name" readonly/>
+                    <input type="text" class="form-control" style="float:left;width:17%"/>
+                    <input type="text" class="form-control" style="float:left;width:17%"/>
+                    <input type="text" class="form-control" style="float:left;width:17%" readonly/>
+                    <input type="text" class="form-control" style="float:left;width:9%;" value="Pass" readonly/>
+                -->
+                <!--Dynamically add subject here!!!-->
+              </div>
+            </div>
+
+            <div style="">
+
+              <div class="form-group" style="float:left;width:20%;margin-top:2%">
+                <label class="control-label" for="addMarksPercentage">Percentage</label>
+                <input class="form-control" id="addMarksPercentage" type="text">
+              </div>
+
+              <div class="form-group" style="float:left;width:30%;margin-top:2%">
+                <label for="select" class="control-label">Class</label>
+                <div>
+                  <select class="form-control" id="addMarksClass">
+                    <option value="FCD">First Class With Distinction</option>
+                    <option value="FC">First Class</option>
+                    <option value="SC">Second Class</option>
+                    <option value="F">Fail</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group" style="float:left;width:25%;margin-top:2%">
+                <label for="select" class="control-label">Batch Month</label>
+                <div>
+                  <select class="form-control" id="addMarksMonth">
+                    <option value="JAN">January</option>
+                    <option value="FEB">February</option>
+                    <option value="MAR">March</option>
+                    <option value="APR">April</option>
+                    <option value="JUN">June</option>
+                    <option value="JLY">July</option>
+                    <option value="AUG">August</option>
+                    <option value="SEP">Septemeber</option>
+                    <option value="OCT">October</option>
+                    <option value="NOV">November</option>
+                    <option value="DEC">December</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group" style="float:left;width:25%;margin-top:2%">
+                <label class="control-label" for="addMarksYear">Batch Year</label>
+                <input class="form-control" id="addMarksYear" type="text">
+              </div>
+
+            </div>
+
+            <a href="#" class="btn btn-primary btn-block" id="addStudentMarksSubmit" style="float:left;margin-top:2%">Add Marks</a>
+        </div>
+
+        <!--Update Student marks with revaluation and latest attempt marks here-->
+        <div id="updateStudentMarks" class="allDivGroup" style="display:none;width:70%;margin-left:15%;margin-top:2%">
+
+            <!--Get the usn and name-->
+            <div class="form-group" style="float:left;width:30%;">
+              <label class="control-label" for="updateMarksUSN">USN</label>
+              <input class="form-control" id="updateMarksUSN" type="text">
+            </div>
+
+            <div class="form-group" style="float:left;width:40%;">
+              <label for="select" class="control-label">Branch</label>
+              <div>
+                <select class="form-control" id="updateMarksBranch">
+                  <optgroup label="UnderGraduate">
+                    <option value="PH">Physics Cycle</option>
+                    <option value="CH">Chemistry Cycle</option>
+                    <option value="CV">Civil</option>
+                    <option value="ME">Mechanical</option>
+                    <option value="EE">Electrical and Electronics</option>
+                    <option value="EC">Electronics and Communication</option>
+                    <option value="CL">Chemical</option>
+                    <option value="IT">Instrumentation Technology</option>
+                    <option value="IE">IEM</option>
+                    <option value="CS">Computer Science</option>
+                    <option value="TC">Telecommunication</option>
+                    <option value="ML">Medical Electronics</option>
+                    <option value="IS">Information Science</option>
+                    <option value="BT">Biotechnology</option>
+                    <option value="AE">Aeronautical</option>
+                    <option value="AM">Automobile</option>
+                    <option value="CM">Construction Tech. Mgmt.</option>
+                  </optgroup>
+                  <optgroup label="PostGraduate">
+                    <option value="SE">Structural Engg</option>
+                    <option value="HT">Highway Technology</option>
+                    <option value="DE">Design Engineering</option>
+                    <option value="CI">Computer Integrated Mft.</option>
+                    <option value="PE">Power Electronics</option>
+                    <option value="DC">Digital Electronics and Comm.</option>
+                    <option value="VD">VLSI Design and Embedded Sys.</option>
+                    <option value="CE">Chemical Engineering</option>
+                    <option value="CN">Computer Network Engg.</option>
+                    <option value="DI">Digital Comm and Engg.</option>
+                    <option value="CO">Computer Science and Engg.</option>
+                    <option value="BS">Biomedical Signal Proc. and Instn.</option>
+                    <option value="MM">Micro Electronics and Mgmt.</option>
+                    <option value="MA">Master of Engg. and Mgmt.</option>
+                    <option value="BO">Bio-informatics</option>
+                    <option value="MB">MBA</option>
+                    <option value="MC">MCA</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="float:left;width:30%;">
+              <label for="select" class="control-label">Semester</label>
+              <div>
+                <select class="form-control" id="updateMarksSemester">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="clear:both">
+              <label class="control-label" for="updateMarksName">Name</label>
+              <input class="form-control" id="updateMarksName" type="text" readonly>
+            </div>
+
+            <div class="alert alert-dismissible alert-info" style="display:none;clear:both;" id="updateMarksAlert">
+              <button type="button" class="close" data-dismiss="alert" id="updateMarksAlertClose">×</button>
+              <p id="updateMarksAlertText"></p>
+            </div>
+
+            <div>
+              <label class="control-label" style="float:left;width:14%">SubjectCode</label>
+              <label class="control-label" style="float:left;width:28%">SubjectName</label>
+              <label class="control-label" style="float:left;width:15%">Attempt</label>
+              <label class="control-label" style="float:left;width:15%">Type</label>
+              <label class="control-label" style="float:left;width:14%">Marks</label>
+              <label class="control-label" style="float:left;width:14%">Externals</label>
+              <div id="updateMarksSubjects">
+                <!--Dynamically add subject here!!!-->
+              </div>
+            </div>
+
+            <div class="form-group" style="float:left;width:50%;margin-top:2%">
+              <label class="control-label" for="updateMarksPercentage">Percentage</label>
+              <input class="form-control" id="updateMarksPercentage" type="text">
+            </div>
+
+            <div class="form-group" style="float:left;width:50%;margin-top:2%">
+              <label for="select" class="control-label">Class</label>
+              <div>
+                <select class="form-control" id="updateMarksClass">
+                  <option value="FCD">First Class With Distinction</option>
+                  <option value="FC">First Class</option>
+                  <option value="SC">Second Class</option>
+                  <option value="F">Fail</option>
+                </select>
+              </div>
+            </div>
+
+            <a href="#" class="btn btn-primary btn-block" id="updateStudentMarksSubmit" style="float:left;margin-top:2%">Add Marks</a>
+        </div>
+
+
+
+        <!--Add student details-->
+        <div id="addStudentDetails" class="allDivGroup" style="display:none;width:70%;margin-left:15%;margin-top:7%">
+          <div class="alert alert-dismissible alert-info" style="display:none" id="addStudentsAlert">
+            <button type="button" class="close" data-dismiss="alert" id="addStudentsAlertClose">×</button>
+            <p id="addStudentsAlertText"></p>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="usnNewStudent">USN</label>
+            <input class="form-control" id="usnNewStudent" type="text">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="nameNewStudent">Name</label>
+            <input class="form-control" id="nameNewStudent" type="text">
+          </div>
+          <a href="#" class="btn btn-primary btn-block" id="newStudentData">Submit Student Details</a>
+        </div>
+
+        <!--Add subjects details-->
+        <div id="addSubjectDetails" class="allDivGroup" style="display:none;width:70%;margin-left:15%;margin-top:2%">
+
+            <div>
+
+              <div class="form-group" style="float:left;width:20%">
+                <label class="control-label" for="scheme">Scheme</label>
+                <div>
+                  <select class="form-control" id="scheme">
+                    <option value="2014">2014</option>
+                    <option value="2010">2010</option>
+                    <option value="2006">2006</option>
+                    <option value="2002">2002</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group" style="float:left;width:30%;">
+                <label for="select" class="control-label">Branch</label>
+                <div>
+                  <select class="form-control" id="branch">
+                    <optgroup label="UnderGraduate">
+                      <option value="PH">Physics Cycle</option>
+                      <option value="CH">Chemistry Cycle</option>
+                      <option value="CV">Civil</option>
+                      <option value="ME">Mechanical</option>
+                      <option value="EE">Electrical and Electronics</option>
+                      <option value="EC">Electronics and Communication</option>
+                      <option value="CL">Chemical</option>
+                      <option value="IT">Instrumentation Technology</option>
+                      <option value="IE">IEM</option>
+                      <option value="CS">Computer Science</option>
+                      <option value="TC">Telecommunication</option>
+                      <option value="ML">Medical Electronics</option>
+                      <option value="IS">Information Science</option>
+                      <option value="BT">Biotechnology</option>
+                      <option value="AE">Aeronautical</option>
+                      <option value="AM">Automobile</option>
+                      <option value="CM">Construction Tech. Mgmt.</option>
+                    </optgroup>
+                    <optgroup label="PostGraduate">
+                      <option value="SE">Structural Engg</option>
+                      <option value="HT">Highway Technology</option>
+                      <option value="DE">Design Engineering</option>
+                      <option value="CI">Computer Integrated Mft.</option>
+                      <option value="PE">Power Electronics</option>
+                      <option value="DC">Digital Electronics and Comm.</option>
+                      <option value="VD">VLSI Design and Embedded Sys.</option>
+                      <option value="CE">Chemical Engineering</option>
+                      <option value="CN">Computer Network Engg.</option>
+                      <option value="DI">Digital Comm and Engg.</option>
+                      <option value="CO">Computer Science and Engg.</option>
+                      <option value="BS">Biomedical Signal Proc. and Instn.</option>
+                      <option value="MM">Micro Electronics and Mgmt.</option>
+                      <option value="MA">Master of Engg. and Mgmt.</option>
+                      <option value="BO">Bio-informatics</option>
+                      <option value="MB">MBA</option>
+                      <option value="MC">MCA</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group" style="float:left;width:30%;">
+                <label for="select" class="control-label">Semester</label>
+                <div>
+                  <select class="form-control" id="semester">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group" style="float:left;width:20%">
+                <label class="control-label" for="numberOfSubjects">NumberOfSubjects</label>
+                <input class="form-control" id="numberOfSubjects" type="text" value="8">
+              </div>
+
+            </div>
+
+            <div class="alert alert-dismissible alert-info" style="display:none;clear:both" id="modifySubjectsAlert">
+              <button type="button" class="close" data-dismiss="alert" id="modifySubjectsAlertClose">×</button>
+              <p id="modifySubjectsAlertText"></p>
+            </div>
+
+            <div>
+              <label class="control-label" style="float:left;width:12%">SubjectCode</label>
+              <label class="control-label" style="float:left;width:28%">SubjectName</label>
+              <label class="control-label" style="float:left;width:10%">IA(min)</label>
+              <label class="control-label" style="float:left;width:10%">EA(min)</label>
+              <label class="control-label" style="float:left;width:10%">Total(min)</label>
+              <label class="control-label" style="float:left;width:10%">IA(max)</label>
+              <label class="control-label" style="float:left;width:10%">EA(max)</label>
+              <label class="control-label" style="float:left;width:10%">Total(max)</label>
+              <div  id="subjects">
+                <!--Dynamically add subject here!!!-->
+              </div>
+            </div>
+
+            <a href="#" class="btn btn-primary btn-block" id="submitNewSubjects" style="float:left;margin-top:2%">Modify/Add Subjects</a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <script>
+      $(".navbarButtons").click(function(){
+        $(".navbarButtons").removeClass('active');
+        $(this).addClass('active');
+        $(".allDivGroup").hide();
+        $("#"+$(this).attr("data-common-href")).show();
+      });
+      $("#brand").click(function(){
+        $(".allDivGroup").hide();
+        $("#universityLogo").show();
+      });
+    </script>
+    <script src="js/modifySubjects.js"></script>
+    <script src="js/addStudent.js"></script>
+    <script src="js/addMarks.js"></script>
+    <script src="js/updateMarks.js"></script>
+</body>
+</html>
