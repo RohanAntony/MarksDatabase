@@ -1,0 +1,16 @@
+<!--Add student details-->
+<div style="width:70%;margin-left:15%;margin-top:7%">
+  <div class="alert alert-dismissible alert-info" style="display:none">
+    <button type="button" class="close" data-dismiss="alert" ng-model="alertCloseButton">×</button>
+    <p ng-model="alertText"></p>
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="usn">USN</label>
+    <input class="form-control" id="usn" ng-model="usn" type="text">
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="name">Name</label>
+    <input class="form-control" id="name" ng-model="name" type="text">
+  </div>
+  <a href="#" class="btn btn-primary btn-block" ng-model="submitNewStudent" ng-click="submit()">Submit Student Details</a>
+</div>

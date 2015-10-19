@@ -3,17 +3,39 @@
 <head>
   <title>MarksDatabase</title>
   <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <script src="/js/angular.min.js"></script>
+  <script src="/js/angular-route.min.js"></script>
+  <script src="/index.js"></script>
+  <script src="/js/addStudentMarks.js"></script>
+  <script src="/js/addStudentDetails.js"></script>
 </head>
-<body>
+<body ng-app="marksDatabase">
 
+  <!--navigation bar-->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand active" id="brand" href="#">MarksDB</a>
+      </div>
 
-<h2>Example body text</h2>
-<p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
-<p><small>This line of text is meant to be treated as fine print.</small></p>
-<p>The following snippet of text is <strong>rendered as bold text</strong>.</p>
-<p>The following snippet of text is <em>rendered as italicized text</em>.</p>
-<p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="navbarButtons"><a ng-href="/addStudentMarks">Add Student Marks</a></li>
+          <li class="navbarButtons"><a ng-href="/updateStudentMarks">Update Student Marks</a></li>
+          <li class="navbarButtons"><a ng-href="/addStudentDetails">Add Student Details</a></li>
+          <li class="navbarButtons"><a ng-href="/addSubjectDetails">Add Subject Details</a></li>
+          <li class="navbarButtons"><a ng-href="/addOtherDetails">Add Other Details</a></li>
+          <li class="navbarButtons"><a ng-href="/viewMarks">View Marks</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="navbarButtons"><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
+  <div ng-view>
+  </div>
 
 </body>
 </html>
