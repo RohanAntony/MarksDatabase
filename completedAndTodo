@@ -1,0 +1,21 @@
+This file will state the completed task and todo task
+-----------------------------------------------------
+
+
+Todo
+----
+-Break the index.html into templates
+-Define controllers for each templates
+-Build the index page which just has a navbar and ng-view
+
+Number of Required Templates is 5
+---------------------------------
+-Template1 for adding metadata of metadata
+-Template2 for adding metadata (student details)
+-Template3 for adding metadata (subject details)
+-Template4 for adding data (student marks)
+-Template5 for modifying data (update student marks)
+
+Completed
+---------
+-Nil , so lets start with something
