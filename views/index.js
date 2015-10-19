@@ -17,8 +17,8 @@ app.config(function($routeProvider,$locationProvider){
   .when('/addSubjectDetails',{
     templateUrl:'/views/html/addSubjectDetails.html'
   })
-  .when('/addOtherDetails',{
-    templateUrl:'/views/html/addOtherDetails.html'
+  .when('/addBranchDetails',{
+    templateUrl:'/views/html/addBranchDetails.html'
   })
   .when('/viewMarks',{
     templateUrl:'/views/html/viewMarks.html'

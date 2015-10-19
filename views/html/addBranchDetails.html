@@ -1,0 +1,63 @@
+<div style="width:70%;margin-left:15%;margin-top:3%">
+
+  <div class="panel panel-default" style="margin-bottom:5%">
+    <div class="panel-body" ng-bind="alertText"></div>
+  </div>
+
+  <div>
+    <!--Add Branch details-->
+    <div style="clear:both">
+      <!--Branch name-->
+      <div class="form-group" style="float:left;width:45%">
+        <label class="control-label" for="name">Branch name</label>
+        <input class="form-control" id="name" type="text">
+      </div>
+      <!--Group-->
+      <div class="form-group" style="float:left;width:45%;margin-left:10%">
+        <label for="group" class="control-label">Group</label>
+        <div>
+          <select class="form-control" id="group">
+            <option value="PG">Post Graduate</option>
+            <option value="UG">Under Graduate</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div style="clear:both">
+      <!--Year displayed here-->
+      <div style="float:left;width:45%;margin-top:3%">
+        <ul>
+          List of years displayed here!!
+        </ul>
+        <div class="form-group">
+          <label class="control-label" for="years">Years(Scheme)</label>
+          <input class="form-control" id="years" type="text">
+        </div>
+        <a href="#" class="btn btn-primary btn-block">Add Year</a>
+      </div>
+      <!--Semester displayed here-->
+      <div style="float:left;width:45%;margin-left:10%;margin-top:3%">
+        <ul>
+          List of sems displayed here!!
+        </ul>
+        <div class="form-group">
+          <label class="control-label" for="sems">Branch sems</label>
+          <input class="form-control" id="sems" type="text">
+        </div>
+        <a href="#" class="btn btn-primary btn-block">Add Semester</a>
+      </div>
+    </div>
+    <!-- !adding branch-->
+  </div>
+
+  <!--Delete a branch-->
+  <div style="margin-top:25%;margin-bottom:5%">
+    <div class="form-group">
+      <label class="control-label" for="id">Record id</label>
+      <input class="form-control" id="id" type="text">
+    </div>
+    <a href="#" class="btn btn-primary btn-block">Delete Record</a>
+  </div>
+
+</div>
