@@ -7,10 +7,17 @@
 
   <div style="margin-bottom:5%">
     <h3>Add or modify student details</h3>
+
     <div class="form-group">
       <label class="control-label" for="usn">USN</label>
-      <input class="form-control" id="usn" ng-model="usn" type="text">
+      <div class="input-group" id="usn">
+        <input type="text" class="form-control" ng-model="usn">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" ng-click="searchRecord()" type="button">Search</button>
+        </span>
+      </div><!-- /input-group -->
     </div>
+
     <div class="form-group">
       <label class="control-label" for="name">Name</label>
       <input class="form-control" id="name" ng-model="name" type="text">
@@ -21,8 +28,8 @@
   <div style="margin-bottom:5%">
     <h3>Delete student details</h3>
     <div class="form-group">
-      <label class="control-label" for="id">Record Id</label>
-      <input class="form-control" id="id" ng-model="id" type="text">
+      <label class="control-label" for="dusn">USN</label>
+      <input class="form-control" id="dusn" ng-model="dusn" type="text">
     </div>
     <a href="#" class="btn btn-primary btn-block" ng-model="deleteStudent" ng-click="delete()">Delete details by record ID</a>
   </div>

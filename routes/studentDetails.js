@@ -7,7 +7,16 @@ var db = mongojs(database,collections);
 
 /* GET home page. */
 router.post('/getDetails', function(req, res, next) {
-  console.log(req.body.name,req.body.usn);
+  console.log(req.body.usn);
+  db.student.find(req.body,function(err,found){
+    if(err){
+      console.log("Error accessing database!!");
+      res.send("");
+    }else{
+      console.log(found[0]);
+      res.send(found[0]);
+    }
+  })
 });
 
 router.post('/addDetails', function(req, res, next) {
@@ -26,5 +35,18 @@ router.post('/addDetails', function(req, res, next) {
   console.log(JSONObject);
 
 });
+
+router.post('/deleteDetails',function(req,res){
+  console.log(req.body);
+  db.student.remove(req.body,function(err,dropped){
+    if(err){
+      console.log('Error in dropping record');
+      res.send("Error in Mongo");
+    }else{
+      console.log(dropped);
+      res.send(dropped);
+    }
+  })
+})
 
 module.exports = router;
