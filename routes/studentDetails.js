@@ -12,7 +12,7 @@ router.post('/getDetails', function(req, res, next) {
 
 router.post('/addDetails', function(req, res, next) {
   console.log(req.body.name,req.body.usn);
-  JSONObject = req.body;
+  var JSONObject = req.body;
   JSONObject._id = "DSCE"+JSONObject.usn;
   db.student.save(JSONObject,function(err,saved){
     if(err || !saved){
@@ -25,11 +25,6 @@ router.post('/addDetails', function(req, res, next) {
   });
   console.log(JSONObject);
 
-});
-
-router.post('/deleteDetails', function(req, res, next) {
-  console.log(req.body.id);
-  db.student.remove({_id:req.body.id});
 });
 
 module.exports = router;

@@ -5,19 +5,33 @@
   </div>
 
   <div>
+
+    <h3>Add or modify branch</h3>
     <!--Add Branch details-->
     <div style="clear:both">
       <!--Branch name-->
-      <div class="form-group" style="float:left;width:45%">
+      <!-- <div class="form-group" >
         <label class="control-label" for="name">Branch name</label>
-        <input class="form-control" id="name" type="text">
+        <input class="form-control" id="name" ng-model="name" type="text">
       </div>
+      <a href="#" class="btn btn-primary" style="float:left;width:15%;margin-right:5%;margin-top:2%" ng-click="loadSem()">LD</a> -->
+
+      <div style="float:left;width:40%">
+        <label class="control-label" for="name">Branch name</label>
+        <div class="input-group" id="name">
+          <input type="text" class="form-control" placeholder="Enter Branch name" ng-model="name">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" ng-click="searchRecord()" type="button">Search</button>
+          </span>
+        </div><!-- /input-group -->
+      </div>
+
       <!--Group-->
-      <div class="form-group" style="float:left;width:45%;margin-left:10%">
+      <div class="form-group" style="float:left;width:40%;margin-left:15%">
         <label for="group" class="control-label">Group</label>
         <div>
-          <select class="form-control" id="group">
-            <option value="PG">Post Graduate</option>
+          <select class="form-control" ng-model="group" id="group">
+            <option value="PG" selected="">Post Graduate</option>
             <option value="UG">Under Graduate</option>
           </select>
         </div>
@@ -26,38 +40,51 @@
 
     <div style="clear:both">
       <!--Year displayed here-->
-      <div style="float:left;width:45%;margin-top:3%">
-        <ul>
-          List of years displayed here!!
+      <div style="float:left;width:45%">
+        <ul style="list-style-type:none">
+          <li style="margin-top:1%" ng-repeat="yearElement in yearList" value="{{ yearElement }}">
+            <span>{{ yearElement }}</span>
+            <a href="#" ng-click="removeYear(yearElement)">Remove</a> <!--Add an ng-click to insert a new year-->
+          </li>
         </ul>
         <div class="form-group">
           <label class="control-label" for="years">Years(Scheme)</label>
-          <input class="form-control" id="years" type="text">
+          <input class="form-control" id="years" ng-model="year" type="text">
         </div>
-        <a href="#" class="btn btn-primary btn-block">Add Year</a>
+        <a href="#" class="btn btn-primary btn-block" ng-click="addYear()">Add Year</a> <!--Add an ng-click to insert a new year-->
       </div>
       <!--Semester displayed here-->
-      <div style="float:left;width:45%;margin-left:10%;margin-top:3%">
-        <ul>
-          List of sems displayed here!!
+      <div style="float:left;width:45%;margin-left:10%">
+        <ul style="list-style-type:none">
+          <!--use ng-repeat to display all the semesters-->
+          <li style="margin-top:1%;margin-left:10%" ng-repeat="semElement in semList" value="{{ semElement }}">
+            <span>{{ semElement }}</span>
+            <a href="#" ng-click="removeSem(semElement)">Remove</a> <!--Add an ng-click to insert a new year-->
+          </li>
         </ul>
         <div class="form-group">
-          <label class="control-label" for="sems">Branch sems</label>
-          <input class="form-control" id="sems" type="text">
+          <label class="control-label" for="sems">Semesters</label>
+          <input class="form-control" id="sems" ng-model="sem" type="text">
         </div>
-        <a href="#" class="btn btn-primary btn-block">Add Semester</a>
+        <a href="#" class="btn btn-primary btn-block" ng-click="addSem()">Add Semester</a><!--Add a ng-click to insert a new semester-->
       </div>
     </div>
+
+    <div style="clear:both">
+      <a style="float:left;margin-top:2%" href="#" class="btn btn-primary btn-block" ng-click="submitBranch()">Add another branch</a>
+    </div>
+
     <!-- !adding branch-->
   </div>
 
   <!--Delete a branch-->
-  <div style="margin-top:25%;margin-bottom:5%">
+  <div style="clear:both;margin-top:15%;margin-bottom:5%">
+    <h3>Delete a branch</h3>
     <div class="form-group">
-      <label class="control-label" for="id">Record id</label>
-      <input class="form-control" id="id" type="text">
+      <label class="control-label" for="dName">Branch Name</label>
+      <input class="form-control" id="dName" ng-model="dName" type="text">
     </div>
-    <a href="#" class="btn btn-primary btn-block">Delete Record</a>
+    <a href="#" class="btn btn-primary btn-block" ng-click="deleteBranch()">Delete Record</a>
   </div>
 
 </div>

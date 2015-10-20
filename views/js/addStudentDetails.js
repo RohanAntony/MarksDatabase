@@ -1,6 +1,4 @@
 app.controller('addStudentDetails',function($scope,$http){
-
-
   $scope.submit = function(){
     console.log($scope.usn,$scope.name);
     $http.post('/studentDetails/addDetails',{
