@@ -6,6 +6,7 @@ var app = express();
 
 var studentDetails = require('./routes/studentDetails');
 var branchDetails = require('./routes/branchDetails');
+var subjectDetails = require('./routes/subjectDetails');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,6 +17,7 @@ app.use('/views',express.static(path.join(__dirname, 'views')));
 
 app.use('/studentDetails',studentDetails);
 app.use('/branchDetails',branchDetails);
+app.use('/subjectDetails',subjectDetails);
 
 app.use('/*',function(req,res){
   res.sendFile(__dirname+'/views/index.html');

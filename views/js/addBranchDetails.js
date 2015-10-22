@@ -1,5 +1,5 @@
 app.controller('addBranchDetails',function($scope,$http){
-
+  
   $scope.group = "PG";
 
   $scope.searchRecord = function(){
@@ -24,7 +24,7 @@ app.controller('addBranchDetails',function($scope,$http){
   $scope.yearList = [2008,2009,2010,2011,2012,2013,2014,2015,2016];
   $scope.addYear = function(){
     if($scope.year){
-      $scope.yearList.push($scope.year);
+      $scope.yearList.push(parseInt($scope.year));
       $scope.yearList.sort(function(a,b){return a-b;});
       $scope.year = "";
     }else{
@@ -39,7 +39,7 @@ app.controller('addBranchDetails',function($scope,$http){
   $scope.semList = [1,2,3,4,5,6,7,8,9];
   $scope.addSem = function(){
     if($scope.sem){
-      $scope.semList.push($scope.sem);
+      $scope.semList.push(parseInt($scope.sem));
       $scope.semList.sort(function(a,b){return a-b;});
       $scope.sem = "";
     }else{
