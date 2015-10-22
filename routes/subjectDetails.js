@@ -30,4 +30,17 @@ router.post('/submitSubjects',function(req,res){
   })
 })
 
+router.post('/searchSubjects',function(req,res){
+  var JSONObject = req.body;
+  db.subjects.find(JSONObject,function(err,found){
+    if(err){
+      console.log(err);
+      res.send("");
+    }else{
+      console.log(found);
+      res.send(found[0]);
+    }
+  })
+})
+
 module.exports = router;

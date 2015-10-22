@@ -54,7 +54,18 @@ app.controller('addSubjectDetails',function($scope,$http){
       });
     }
 
-
+    $scope.search = function(){
+      $http.post('/subjectDetails/searchSubjects',{
+        branch:$scope.branch.name,
+        group:$scope.branch.group,
+        scheme:$scope.year
+      }).then(function(success){
+        $scope.subjects = success.data.subjects;
+        $scope.alertText = "Data FOUND and LOADED.";
+      },function(error){
+        console.log(error);
+      });
+    }    
 
     $scope.deleteRow = function(index){
       $scope.subjects.splice(index,1);

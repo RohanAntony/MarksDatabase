@@ -15,6 +15,10 @@ app.config(function($routeProvider,$locationProvider){
     templateUrl:'/views/html/addSubjectDetails.html',
     controller:'addSubjectDetails'
   })
+  .when('/addStudentMarks',{
+    templateUrl:'/views/html/addStudentMarks.html',
+    controller:'addStudentMarks'
+  })
 
   $locationProvider.html5Mode(true);
 })
