@@ -33,20 +33,7 @@ router.post('/addDetails', function(req, res, next) {
     }
   });
   console.log(JSONObject);
-
 });
 
-router.post('/deleteDetails',function(req,res){
-  console.log(req.body);
-  db.student.remove(req.body,function(err,dropped){
-    if(err){
-      console.log('Error in dropping record');
-      res.send("Error in Mongo");
-    }else{
-      console.log(dropped);
-      res.send(dropped);
-    }
-  })
-})
 
 module.exports = router;

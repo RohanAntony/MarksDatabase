@@ -34,17 +34,4 @@ router.post('/getBranch',function(req,res){
   })
 })
 
-router.post('/deleteBranch',function(req,res){
-  console.log(req.body);
-  db.branch.remove(req.body,function(err,dropped){
-    if(err){
-      console.log('Error in dropping record');
-      res.send("Error in Mongo");
-    }else{
-      console.log(dropped);
-      res.send(dropped);
-    }
-  })
-})
-
 module.exports = router;

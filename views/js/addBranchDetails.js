@@ -1,10 +1,11 @@
 app.controller('addBranchDetails',function($scope,$http){
-  
+
   $scope.group = "PG";
 
   $scope.searchRecord = function(){
     $http.post('/branchDetails/getBranch',{
-      name:$scope.name
+      name:$scope.name,
+      group:$scope.group
     }).then(function(success){
       if(success.data){
         console.log(success);
@@ -15,6 +16,8 @@ app.controller('addBranchDetails',function($scope,$http){
       }else{
         console.log(success);
         $scope.alertText = "No record found";
+        $scope.yearList = [2008,2009,2010,2011,2012,2013,2014,2015,2016];
+        $scope.semList = [1,2,3,4,5,6,7,8,9];
       }
     },function(error){
       $scope.alertText = "Unable to search , Angular error!!";
@@ -62,22 +65,6 @@ app.controller('addBranchDetails',function($scope,$http){
     },function(error){
       $scope.alertText = "Error in sending data!! Angular Error!";
     });
-  }
-
-  $scope.deleteBranch = function(){
-    $http.post('/branchDetails/deleteBranch',{
-      name:$scope.dName
-    }).then(function(response){
-      console.log(response);
-      if(response.data.ok == 1 && response.data.n == 1){
-        $scope.alertText = "A record was dropped";
-      }else if(response.data.ok == 1 && response.data.n == 0){
-        $scope.alertText = "No record found";
-      }
-    },function(error){
-      console.log(error);
-      $scope.alertText = "Error in sending data!! Angular Error!";
-    })
   }
 
 })

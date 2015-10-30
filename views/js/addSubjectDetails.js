@@ -58,14 +58,40 @@ app.controller('addSubjectDetails',function($scope,$http){
       $http.post('/subjectDetails/searchSubjects',{
         branch:$scope.branch.name,
         group:$scope.branch.group,
-        scheme:$scope.year
+        scheme:$scope.year,
+        semester:$scope.sem
       }).then(function(success){
         $scope.subjects = success.data.subjects;
-        $scope.alertText = "Data FOUND and LOADED.";
+        if(!$scope.subjects){
+          $scope.subjects = [{
+            code:'',
+            name:'',
+            minIA:15,
+            maxIA:25,
+            minEA:35,
+            maxEA:100,
+            minTot:50,
+            maxTot:125,
+            per:true
+          },{
+            code:'',
+            name:'',
+            minIA:15,
+            maxIA:25,
+            minEA:35,
+            maxEA:100,
+            minTot:50,
+            maxTot:125,
+            per:true
+          }];
+          $scope.alertText = "Data was not found.Please enter these values";
+        }else{
+          $scope.alertText = "Data FOUND and LOADED.";
+        }
       },function(error){
         console.log(error);
       });
-    }    
+    }
 
     $scope.deleteRow = function(index){
       $scope.subjects.splice(index,1);

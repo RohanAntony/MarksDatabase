@@ -33,22 +33,4 @@ app.controller('addStudentDetails',function($scope,$http){
       $scope.alertText = error;
     })
   }
-
-  $scope.delete = function(){
-    console.log($scope.dusn);
-    $http.post('/studentDetails/deleteDetails',{
-      usn:$scope.dusn.toUpperCase()
-    }).then(function(response){
-      console.log(response);
-      if(response.data.ok == 1 && response.data.n == 1){
-        $scope.alertText = "A record was dropped";
-        $scope.name = $scope.usn = $scope.dusn = "";
-      }else if(response.data.ok == 1 && response.data.n == 0){
-        $scope.alertText = "No record found";
-      }
-    },function(error){
-      console.log(error);
-      $scope.alertText = error;
-    })
-  }
 })
