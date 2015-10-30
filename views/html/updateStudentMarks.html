@@ -73,7 +73,7 @@
       <!-- Change the below html element to a dropdown type element  and also rename the variables ng-model-->
       <select class="form-control" ng-model="mark.element" ng-options="attempt.val as attempt.name for attempt in attempts" ng-init="mark.element=attempts[0].val" style="float:left;width:7%"></select>
       <select class="form-control" ng-model="mark.val" ng-options="type.val as type.name for type in types" ng-init="mark.val=types[0].val" style="float:left;width:8%"></select>
-      <input class="form-control" ng-model="mark.external[mark.element][mark.val]" style="float:left;width:15%" type="text">
+      <input class="form-control" ng-model="mark.external[mark.element][mark.val]" style="float:left;width:15%" type="text" ng-change="findTotal($index)">
       <input class="form-control" ng-model="mark.total"  style="float:left;width:17%;" readonly="" type="text">
       <input class="form-control" ng-model="mark.status" style="float:left;width:9%;" readonly="" type="text">
       <input class="form-control" ng-model="mark.external[mark.element]['absent']" ng-change="setAbsent($index)" style="float:left;width:4%" type="checkbox">

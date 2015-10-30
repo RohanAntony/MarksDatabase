@@ -35,7 +35,7 @@ app.controller('updateStudentMarks',function($scope,$http){
         console.log(response.data);
         $scope.student.name = response.data.name;
         $scope.student.usn = response.data.usn;
-        $scope.student.marks = response.data.marks;
+        $scope.student = response.data;
         $scope.alertText = "Record Found";
       }else{
         $scope.student.name = $scope.student.usn = "";
@@ -47,72 +47,90 @@ app.controller('updateStudentMarks',function($scope,$http){
     })
   }
 
+  function checkMinimum(index){
+    console.log("checkMinimum/scope.student.marks[index]:",$scope.student.marks[index]);
+    if($scope.student.marks[index].external[$scope.student.marks[index].element][$scope.student.marks[index].val] > $scope.student.marks[index].maxEA){
+      $scope.alertText = "Externals marks exceeded value "+$scope.student.marks[index].maxEA;
+      $scope.student.marks[index].external[$scope.student.marks[index].element][$scope.student.marks[index].val] = 0;
+    }
+    return true;
+  }
+
+  function newTotal(index){
+    $scope.student.marks[index].total = 0;
+    $scope.student.marks[index].external.forEach(function(subject){
+      if(Number(subject[$scope.student.marks[index].val])+Number($scope.student.marks[index].internal) > $scope.student.marks[index].total)
+        $scope.student.marks[index].total = Number(subject[$scope.student.marks[index].val])+Number($scope.student.marks[index].internal);
+      })
+  }
+
+  function calcPercentage(index){
+    var percentage = 0;
+    var fail = false;
+    $scope.student.marks.forEach(function(subject){
+      percentage = parseInt(subject.total) + parseInt(percentage);
+      if(subject.status == "Fail"){
+        fail = true;
+      }
+    })
+    $scope.student.percentage = Number((percentage/(parseInt($scope.student.totalMarks))*100));
+    console.log(percentage,$scope.student.totalMarks,$scope.student.percentage);
+    if(fail){
+      $scope.student.class = "Fail";
+    }else{
+      if($scope.student.percentage > 70)
+        $scope.student.class = "First Class with Distinction";
+      else if($scope.student.percentage > 60)
+        $scope.student.class = "First Class";
+      else if($scope.student.percentage > 35)
+        $scope.student.class = "Second Class";
+      else
+        $scope.student.class = "Fail";
+    }
+  }
+
+  $scope.setAbsent = function(index){
+    if(checkMinimum(index)){
+      $scope.student.marks[index].external[$scope.student.marks[index].element].val = 0;
+      $scope.student.marks[index].external[$scope.student.marks[index].element].reval = 0;
+      $scope.student.marks[index].status = "Fail";
+      $scope.student.marks[index].total = parseInt($scope.student.marks[index].internal) + parseInt($scope.student.marks[index].external[0].val);
+      newTotal(index);
+      calcPercentage(index);
+    }
+  }
+
+  // $scope.findTotal = function(index){
+  //   checkMinimum(index);
+  //   newTotal(index);
+  //   calcPercentage(index);
+  // }
+
+  $scope.findTotal = function(index){
+    if(checkMinimum(index)){
+      newTotal(index);
+      $scope.student.marks[index].total = parseInt($scope.student.marks[index].internal) + parseInt($scope.student.marks[index].external[0].val);
+      if(parseInt($scope.student.marks[index].internal) >= parseInt($scope.student.marks[index].minIA) && parseInt($scope.student.marks[index].external[0].val) >= parseInt($scope.student.marks[index].minEA) && parseInt($scope.student.marks[index].total) >= parseInt($scope.student.marks[index].minTot)){
+          $scope.student.marks[index].status = "Pass";
+      }else {
+          $scope.student.marks[index].status = "Fail";
+          $scope.student.class="Fail";
+      }
+      calcPercentage(index);
+    }
+  }
+
 })
 
 
-// $scope.setAbsent = function(index){
-//   if(checkMinimum(index)){
-//     $scope.student.marks[index].external[$scope.student.marks[index].element].val = 0;
-//     $scope.student.marks[index].external[$scope.student.marks[index].element].reval = 0;
-//     $scope.student.marks[index].status = "Fail";
-//     $scope.student.marks[index].total = parseInt($scope.student.marks[index].internal) + parseInt($scope.student.marks[index].external[0].val);
-//     calcPercentage(index);
-//   }
-//   //add the percentage and class code here
-// }
 //
-// $scope.findTotal = function(index){
-//   if(checkMinimum(index)){
-//     $scope.student.marks[index].total = parseInt($scope.student.marks[index].internal) + parseInt($scope.student.marks[index].external[0].val);
-//     //check if the internal mark is less than the desired internal marks
-//     if(parseInt($scope.student.marks[index].internal) >= parseInt($scope.student.marks[index].minIA) && parseInt($scope.student.marks[index].external[0].val) >= parseInt($scope.student.marks[index].minEA) && parseInt($scope.student.marks[index].total) >= parseInt($scope.student.marks[index].minTot)){
-//         $scope.student.marks[index].status = "Pass";
-//     }else {
-//         $scope.student.marks[index].status = "Fail";
-//         $scope.student.class="Fail";
-//     }
-//     calcPercentage(index);
-//   }
 //
+//
+
+
+
 //   //calculate the new percentage based on this if this is part of percentage
-// }
 //
-// function checkMinimum(index){
-//   if($scope.student.marks[index].internal > $scope.student.marks[index].maxIA){
-//     $scope.alertText = "Internals marks exceeded value "+$scope.student.marks[index].maxIA;
-//     $scope.student.marks[index].internal = 0;
-//   }else if($scope.student.marks[index].external[0].val > $scope.student.marks[index].maxEA){
-//     $scope.alertText = "Externals marks exceeded value "+$scope.student.marks[index].maxEA;
-//     $scope.student.marks[index].external[0].val = 0;
-//   }
-//   return true;
-// }
-//
-// function calcPercentage(index){
-//   var percentage = 0;
-//   var fail = false;
-//   $scope.student.marks.forEach(function(subject,index){
-//     // console.log(percentage = parseInt(subject.total) + parseInt(percentage));
-//     percentage = parseInt(subject.total) + parseInt(percentage);
-//     if(subject.status == "Fail"){
-//       fail = true;
-//     }
-//   })
-//   $scope.student.percentage = Number((percentage/(parseInt($scope.student.subjects.totalMarks))*100));
-//   console.log(percentage,$scope.student.subjects.totalMarks,$scope.student.percentage);
-//   if(fail){
-//     $scope.student.class = "Fail";
-//   }else{
-//     if($scope.student.percentage > 70)
-//       $scope.student.class = "First Class with Distinction";
-//     else if($scope.student.percentage > 60)
-//       $scope.student.class = "First Class";
-//     else if($scope.student.percentage > 35)
-//       $scope.student.class = "Second Class";
-//     else
-//       $scope.student.class = "Fail";
-//   }
-// }
 //
 // $scope.updateMarks = function(){
 //   var student = {};

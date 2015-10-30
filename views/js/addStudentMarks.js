@@ -8,11 +8,9 @@ app.controller('addStudentMarks',function($scope,$http){
     if($scope.student.marks[index].internal > $scope.student.marks[index].maxIA){
       $scope.alertText = "Internals marks exceeded value "+$scope.student.marks[index].maxIA;
       $scope.student.marks[index].internal = 0;
-      return false;
     }else if($scope.student.marks[index].external[0].val > $scope.student.marks[index].maxEA){
       $scope.alertText = "Externals marks exceeded value "+$scope.student.marks[index].maxEA;
       $scope.student.marks[index].external[0].val = 0;
-      return false;
     }
     return true;
   }
@@ -21,7 +19,6 @@ app.controller('addStudentMarks',function($scope,$http){
     var percentage = 0;
     var fail = false;
     $scope.student.marks.forEach(function(subject,index){
-      // console.log(percentage = parseInt(subject.total) + parseInt(percentage));
       percentage = parseInt(subject.total) + parseInt(percentage);
       if(subject.status == "Fail"){
         fail = true;
@@ -54,17 +51,13 @@ app.controller('addStudentMarks',function($scope,$http){
   $scope.findTotal = function(index){
     if(checkMinimum(index)){
       $scope.student.marks[index].total = parseInt($scope.student.marks[index].internal) + parseInt($scope.student.marks[index].external[0].val);
-      //check if the internal mark is less than the desired internal marks
       if(parseInt($scope.student.marks[index].internal) >= parseInt($scope.student.subjects[index].minIA) && parseInt($scope.student.marks[index].external[0].val) >= parseInt($scope.student.subjects[index].minEA) && parseInt($scope.student.marks[index].total) >= parseInt($scope.student.subjects[index].minTot)){
           $scope.student.marks[index].status = "Pass";
       }else {
           $scope.student.marks[index].status = "Fail";
-          $scope.student.class="Fail";
       }
       calcPercentage(index);
     }
-
-    //calculate the new percentage based on this if this is part of percentage
   }
 
   $scope.submitMarks = function(){
@@ -77,28 +70,14 @@ app.controller('addStudentMarks',function($scope,$http){
     student.semester = $scope.sem;
     student.marks = $scope.student.marks;
     student.marks.forEach(function(subject,index){
-      subject.external[1] = {
-        val:"",
-        reval:"",
-        absent:false
-      };
-      subject.external[2] = {
-        val:"",
-        reval:"",
-        absent:false
-      };
-      subject.external[3] = {
-        val:"",
-        reval:"",
-        absent:false
-      };
-      subject.external[4] = {
-        val:"",
-        reval:"",
-        absent:false
-      };
+      for(var i=1;i<5;i++){
+        student.marks[index].external[i] = {
+          val:"",
+          reval:"",
+          absent:false
+        };
+      }
     })
-    console.log('addStudentMarks/submitMarks/scope.student.marks:',$scope.student.marks);
     student.percentage = $scope.student.percentage;
     student.class = $scope.student.class;
     student.totalMarks = $scope.student.totalMarks;
@@ -108,10 +87,10 @@ app.controller('addStudentMarks',function($scope,$http){
       $scope.alertText = "Successfully added marks to the database";
       $scope.student.marks.forEach(function(subject,index){
         $scope.student.marks[index].internal = 0;
-        $scope.student.marks[index].external = [];
+     // $scope.student.marks[index].external = [];
         $scope.student.marks[index].external[0] = {
-          val:0,
-          reval:0,
+          val:"",
+          reval:"",
           absent:false
         };
         $scope.student.marks[index].total = 0;
