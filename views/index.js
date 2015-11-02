@@ -23,10 +23,6 @@ app.config(function($routeProvider,$locationProvider){
     templateUrl:'/views/html/updateStudentMarks.html',
     controller:'updateStudentMarks'
   })
-  .when('/viewMarks',{
-    templateUrl:'/views/html/viewMarks.html',
-    controller:'viewMarks'
-  })
-
+  
   $locationProvider.html5Mode(true);
 })
