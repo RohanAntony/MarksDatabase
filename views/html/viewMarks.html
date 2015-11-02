@@ -1,0 +1,66 @@
+<div style="width:90%;margin-left:5%;margin-top:3%">
+
+  <div class="panel panel-default" style="margin-bottom:5%">
+    <div class="panel-body" ng-bind="alertText"></div>
+  </div>
+
+  <h3>Add a student marks here.</h3>
+
+  <div style="clear:both">
+    <!--Enter student USN to get the name-->
+    <div class="form-group" style="float:left;width:45%">
+      <label class="control-label" for="usn">USN</label>
+      <div class="input-group" id="usn">
+        <input type="text" class="form-control" ng-model="usn">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" ng-click="searchUser()" type="button">Search</button>
+        </span>
+      </div><!-- /input-group -->
+    </div>
+
+    <!-- Display the student name that is recieved on search -->
+    <div class="form-group" style="float:left;width:45%;margin-left:10%">
+      <label class="control-label" for="name">Name</label>
+      <input class="form-control" id="name" ng-model="name" readonly="true" type="text">
+    </div>
+  </div>
+
+  <div style="clear:both">
+
+    <!--Semester on branch-->
+    <div class="input-group" style="float:left;width:100%">
+      <label for="recordDetails" class="control-label">Record Details</label>
+      <div style="width:60%">
+        <select class="form-control" ng-model="recordDetails" id="recordDetails">
+          <option ng-repeat="detail in details" value="{{ $index }}">{{ detail.semester+" , "+detail.scheme+" , "+detail.branch+" , "+detail.group }}</option>
+        </select>
+      </div>
+      <!--Search button-->
+      <a href="#" style="margin-left:20%;width:20%" class="btn btn-primary" ng-click="showDetails()">Show details</a>
+    </div>
+
+  </div>
+
+  <div style="clear:both;margin-top:10%">
+  <!-- show output here -->
+    <table style="width:100%">
+      <tr>
+        <th>SubjectCode</th>
+        <th>SubjectName</th>
+        <th>Internal</th>
+        <th>External</th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+      <tr ng-repeat="mark in detailRecord.marks">
+        <td>{{ mark.code }}</td>
+        <td>{{ mark.name }}</td>
+        <td>{{ mark.internal }}</td>
+        <td>Another repeat</td>
+        <td>{{ mark.total }}</td>
+        <td>{{ mark.status }}</td>
+      </tr>
+    </table>
+  </div>
+
+</div>

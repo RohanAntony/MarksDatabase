@@ -58,17 +58,24 @@ app.controller('updateStudentMarks',function($scope,$http){
 
   function newTotal(index){
     $scope.student.marks[index].total = 0;
+    var maxValue = 0;
     $scope.student.marks[index].external.forEach(function(subject){
-      if(Number(subject[$scope.student.marks[index].val])+Number($scope.student.marks[index].internal) > $scope.student.marks[index].total)
-        $scope.student.marks[index].total = Number(subject[$scope.student.marks[index].val])+Number($scope.student.marks[index].internal);
-      })
+      // if(Number(subject[$scope.student.marks[index].val])+Number($scope.student.marks[index].internal) > $scope.student.marks[index].total)
+      //   $scope.student.marks[index].total = Number(subject[$scope.student.marks[index].val])+Number($scope.student.marks[index].internal);
+      if(Number(subject.val) > maxValue)
+        maxValue = Number(subject.val);
+      if(Number(subject.reval) > maxValue)
+        maxValue = Number(subject.reval);
+    })
+    $scope.student.marks[index].total = Number($scope.student.marks[index].internal) + maxValue;
   }
 
   function calcPercentage(index){
     var percentage = 0;
     var fail = false;
     $scope.student.marks.forEach(function(subject){
-      percentage = parseInt(subject.total) + parseInt(percentage);
+      if(subject.per)
+        percentage = parseInt(subject.total) + parseInt(percentage);
       if(subject.status == "Fail"){
         fail = true;
       }
@@ -100,24 +107,69 @@ app.controller('updateStudentMarks',function($scope,$http){
     }
   }
 
-  // $scope.findTotal = function(index){
-  //   checkMinimum(index);
-  //   newTotal(index);
-  //   calcPercentage(index);
-  // }
-
   $scope.findTotal = function(index){
     if(checkMinimum(index)){
       newTotal(index);
-      $scope.student.marks[index].total = parseInt($scope.student.marks[index].internal) + parseInt($scope.student.marks[index].external[0].val);
-      if(parseInt($scope.student.marks[index].internal) >= parseInt($scope.student.marks[index].minIA) && parseInt($scope.student.marks[index].external[0].val) >= parseInt($scope.student.marks[index].minEA) && parseInt($scope.student.marks[index].total) >= parseInt($scope.student.marks[index].minTot)){
-          $scope.student.marks[index].status = "Pass";
-      }else {
-          $scope.student.marks[index].status = "Fail";
-          $scope.student.class="Fail";
-      }
+          if(parseInt($scope.student.marks[index].total) >= parseInt($scope.student.marks[index].minTot)){
+              $scope.student.marks[index].status = "Pass";
+          }else {
+              $scope.student.marks[index].status = "Fail";
+              $scope.student.class="Fail";
+          }
       calcPercentage(index);
     }
+  }
+
+  // $scope.findTotal = function(index){
+  //   if(checkMinimum(index)){
+  //     newTotal(index);
+  //     $scope.student.marks[index].total = parseInt($scope.student.marks[index].internal) + parseInt($scope.student.marks[index].external[0].val);
+  //     if(parseInt($scope.student.marks[index].internal) >= parseInt($scope.student.marks[index].minIA) && parseInt($scope.student.marks[index].external[0].val) >= parseInt($scope.student.marks[index].minEA) && parseInt($scope.student.marks[index].total) >= parseInt($scope.student.marks[index].minTot)){
+  //         $scope.student.marks[index].status = "Pass";
+  //     }else {
+  //         $scope.student.marks[index].status = "Fail";
+  //         $scope.student.class="Fail";
+  //     }
+  //     calcPercentage(index);
+  //   }
+  // }
+
+  $scope.updateMarks = function(){
+    var student = {};
+    student.name = $scope.student.name;
+    student.usn = $scope.student.usn;
+    student.branch = $scope.branch.name;
+    student.group = $scope.branch.group;
+    student.scheme = $scope.year;
+    student.semester = $scope.sem;
+    student.marks = $scope.student.marks;
+    student.percentage = $scope.student.percentage;
+    student.class = $scope.student.class;
+    student.subjectID = $scope.student.subjectID;
+    console.log(student);
+    $http.post('/updateMarks/addMarks',student).then(function(success){
+      $scope.alertText = "Successfully added marks to the database";
+      $scope.student.marks.forEach(function(subject,index){
+        $scope.student.marks[index].internal = 0;
+        $scope.student.marks[index].external.forEach(function(subject){
+          subject = {
+            val:0,
+            reval:0,
+            absent:false
+          };
+        });
+        $scope.student.marks[index].element = 0;
+        $scope.student.marks[index].val = "val";
+        $scope.student.marks[index].total = 0;
+        $scope.student.marks[index].status = "";
+      })
+      $scope.student.percentage = 0;
+      $scope.student.class = "Fail";
+      $scope.student.usn = "";
+      $scope.student.name = "";
+    },function(error){
+      $scope.alertText = "Error in adding marks to the database";
+    });
   }
 
 })
@@ -132,33 +184,3 @@ app.controller('updateStudentMarks',function($scope,$http){
 //   //calculate the new percentage based on this if this is part of percentage
 //
 //
-// $scope.updateMarks = function(){
-//   var student = {};
-//   student.name = $scope.student.name;
-//   student.usn = $scope.student.usn;
-//   student.marks = $scope.student.marks;
-//   student.percentage = $scope.student.percentage;
-//   student.class = $scope.student.class;
-//   student.subjectID = $scope.student.subjectID;
-//   console.log(student);
-//   $http.post('/studentMarks/addMarks',student).then(function(success){
-//     $scope.alertText = "Successfully added marks to the database";
-//     $scope.student.marks.forEach(function(subject,index){
-//       $scope.student.marks[index].internal = 0;
-//       $scope.student.marks[index].external = [];
-//       $scope.student.marks[index].external[0] = {
-//         val:0,
-//         reval:0,
-//         absent:false
-//       };
-//       $scope.student.marks[index].total = 0;
-//       $scope.student.marks[index].status = "";
-//     })
-//     $scope.student.percentage = 0;
-//     $scope.student.class = "Fail";
-//     $scope.student.usn = "";
-//     $scope.student.name = "";
-//   },function(error){
-//     $scope.alertText = "Error in adding marks to the database";
-//   });
-// }

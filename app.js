@@ -9,6 +9,7 @@ var branchDetails = require('./routes/branchDetails');
 var subjectDetails = require('./routes/subjectDetails');
 var studentMarks = require('./routes/studentMarks');
 var updateMarks = require('./routes/updateMarks');
+var viewMarks = require('./routes/viewMarks');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,6 +23,7 @@ app.use('/branchDetails',branchDetails);
 app.use('/subjectDetails',subjectDetails);
 app.use('/studentMarks',studentMarks);
 app.use('/updateMarks',updateMarks);
+app.use('/viewMarks',viewMarks);
 
 app.use('/*',function(req,res){
   res.sendFile(__dirname+'/views/index.html');

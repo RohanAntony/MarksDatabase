@@ -19,4 +19,19 @@ router.post('/getDetails',function(req,res){
   })
 })
 
+router.post('/addMarks',function(req,res){
+  var JSONObject = req.body;
+  JSONObject._id = req.body.subjectID+req.body.usn;
+  db.marks.save(JSONObject,function(err,saved){
+    if(err){
+      res.send("Error in saving data to the database!");
+      console.log("updateMarks/addMarks:Error is saving data to database");
+    }else{
+      console.log(saved);
+      res.send("Successfully wrote data to the database!");
+      console.log("updateMarks/addMarks:Successfully saved data to database");
+    }
+  })
+})
+
 module.exports = router;

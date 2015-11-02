@@ -19,7 +19,8 @@ app.controller('addStudentMarks',function($scope,$http){
     var percentage = 0;
     var fail = false;
     $scope.student.marks.forEach(function(subject,index){
-      percentage = parseInt(subject.total) + parseInt(percentage);
+      if(subject.per)
+        percentage = parseInt(subject.total) + parseInt(percentage);
       if(subject.status == "Fail"){
         fail = true;
       }
@@ -155,7 +156,9 @@ app.controller('addStudentMarks',function($scope,$http){
         $scope.student.marks[index].minTot = subject.minTot;
         $scope.student.marks[index].maxTot = subject.maxTot;
         $scope.student.marks[index].status = "";
-        totalMarks += parseInt(subject.maxTot);
+        $scope.student.marks[index].per = subject.per;
+        if(subject.per)
+          totalMarks += parseInt(subject.maxTot);
       })
       $scope.student.totalMarks = parseInt(totalMarks);
       console.log("addStudentMarks/forEach:",$scope.student.marks);

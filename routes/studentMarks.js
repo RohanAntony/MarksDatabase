@@ -13,6 +13,7 @@ router.post('/addMarks',function(req,res){
       res.send("Error in saving data to the database!");
       console.log("studentMarks/addMarks:Error is saving data to database");
     }else{
+      console.log(saved);
       res.send("Successfully wrote data to the database!");
       console.log("studentMarks/addMarks:Successfully saved data to database");
     }
