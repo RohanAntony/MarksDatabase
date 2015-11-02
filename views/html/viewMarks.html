@@ -43,7 +43,7 @@
 
   <div style="clear:both;margin-top:10%">
   <!-- show output here -->
-    <table style="width:100%">
+    <table class="table" style="width:100%">
       <tr>
         <th>SubjectCode</th>
         <th>SubjectName</th>
@@ -56,7 +56,14 @@
         <td>{{ mark.code }}</td>
         <td>{{ mark.name }}</td>
         <td>{{ mark.internal }}</td>
-        <td>Another repeat</td>
+        <td>
+          <div ng-repeat="external in mark.external track by $index">
+            <p ng-show="">{{  }}</p>
+            <p ng-show="external.absent">{{ ($index+1) }}:Absent</p>
+            <p ng-show="!external.absent && external.val">Valuavation:{{ external.val }}</p>
+            <p ng-show="!external.absent && external.reval">Revaluvation:{{ external.reval }}</p>
+          </div>
+        </td>
         <td>{{ mark.total }}</td>
         <td>{{ mark.status }}</td>
       </tr>
