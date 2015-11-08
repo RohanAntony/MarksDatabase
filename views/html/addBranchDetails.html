@@ -9,33 +9,27 @@
     <h3>Add or modify branch</h3>
     <!--Add Branch details-->
     <div style="clear:both">
-      <!--Branch name-->
-      <!-- <div class="form-group" >
-        <label class="control-label" for="name">Branch name</label>
-        <input class="form-control" id="name" ng-model="name" type="text">
-      </div>
-      <a href="#" class="btn btn-primary" style="float:left;width:15%;margin-right:5%;margin-top:2%" ng-click="loadSem()">LD</a> -->
 
-      <div style="float:left;width:40%">
+      <div style="float:left;width:30%">
         <label class="control-label" for="name">Branch name</label>
-        <div class="input-group" id="name">
+        <div class="form-group" id="name">
           <input type="text" class="form-control" placeholder="Enter Branch name" ng-model="name">
-          <span class="input-group-btn">
-            <button class="btn btn-primary" ng-click="searchRecord()" type="button">Search</button>
-          </span>
         </div><!-- /input-group -->
       </div>
 
       <!--Group-->
-      <div class="form-group" style="float:left;width:40%;margin-left:15%">
+      <div class="form-group" style="float:left;width:30%;margin-left:25%">
         <label for="group" class="control-label">Group</label>
         <div>
           <select class="form-control" ng-model="group" id="group">
             <option value="PG" selected="">Post Graduate</option>
             <option value="UG">Under Graduate</option>
+            <option value="DP">Diploma</option>
           </select>
         </div>
       </div>
+
+      <a style="float:left;width:10%;margin-left:5%;margin-top:3%" class="btn btn-primary" href="#" ng-click="searchRecord()">Search</a>
     </div>
 
     <div style="clear:both">

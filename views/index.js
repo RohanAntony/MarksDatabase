@@ -1,4 +1,5 @@
 var app = angular.module('marksDatabase',['ngRoute']);
+var pass = false;
 
 app.config(function($routeProvider,$locationProvider){
 
@@ -23,6 +24,9 @@ app.config(function($routeProvider,$locationProvider){
     templateUrl:'/views/html/updateStudentMarks.html',
     controller:'updateStudentMarks'
   })
-  
+  .when('/logout',{
+    redirectTo:'/views/login.html'
+  })
+
   $locationProvider.html5Mode(true);
 })

@@ -120,20 +120,6 @@ app.controller('updateStudentMarks',function($scope,$http){
     }
   }
 
-  // $scope.findTotal = function(index){
-  //   if(checkMinimum(index)){
-  //     newTotal(index);
-  //     $scope.student.marks[index].total = parseInt($scope.student.marks[index].internal) + parseInt($scope.student.marks[index].external[0].val);
-  //     if(parseInt($scope.student.marks[index].internal) >= parseInt($scope.student.marks[index].minIA) && parseInt($scope.student.marks[index].external[0].val) >= parseInt($scope.student.marks[index].minEA) && parseInt($scope.student.marks[index].total) >= parseInt($scope.student.marks[index].minTot)){
-  //         $scope.student.marks[index].status = "Pass";
-  //     }else {
-  //         $scope.student.marks[index].status = "Fail";
-  //         $scope.student.class="Fail";
-  //     }
-  //     calcPercentage(index);
-  //   }
-  // }
-
   $scope.updateMarks = function(){
     var student = {};
     student.name = $scope.student.name;
@@ -173,14 +159,3 @@ app.controller('updateStudentMarks',function($scope,$http){
   }
 
 })
-
-
-//
-//
-//
-
-
-
-//   //calculate the new percentage based on this if this is part of percentage
-//
-//
